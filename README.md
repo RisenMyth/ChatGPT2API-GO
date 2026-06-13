@@ -278,6 +278,20 @@ make package
 make package-web
 ```
 
+手动打包支持以下目标：
+
+| 目标 | 环境变量 |
+|---|---|
+| Linux x86_64 | `TARGET_OS=linux TARGET_ARCH=amd64` |
+| Linux ARM64 | `TARGET_OS=linux TARGET_ARCH=arm64` |
+| macOS x86_64 | `TARGET_OS=darwin TARGET_ARCH=amd64` |
+
+每个发布包都会包含：
+
+- 对应目标的 `chatgpt2api-go` 主程序二进制。
+- 已构建的前端静态文件 `web_dist/`。
+- 对应目标可用的 `curl-impersonate` 二进制目录 `data/bin/curl-impersonate/`。
+
 发布包会生成到：
 
 ```text
@@ -338,11 +352,13 @@ CHATGPT2API_CURL_IMPERSONATE_BIN=/path/to/curl_edge101 \
 ./start.sh --port 3000
 ```
 
-发布包会包含：
+发布包会包含对应目标的 `curl-impersonate` 二进制目录：
 
 ```text
-data/bin/curl-impersonate/curl_edge101
+data/bin/curl-impersonate/
 ```
+
+如果目标包内没有 `curl_edge101`，请使用 `data/bin/curl-impersonate/` 中存在的 `curl_*` 启动脚本或 `curl-impersonate` 可执行文件。
 
 ## API 使用
 
